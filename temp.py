@@ -1,9 +1,10 @@
 import multiprocessing
 import os
 import pickle
-from turtle import done
 
 import neat
+#from neat import Config
+#from neat.config import Config
 import numpy as np
 #import cart_pole
 import gym
@@ -39,15 +40,7 @@ def eval_genomes(genomes, config):
     for genome_id, genome in genomes:
         genome.fitness = eval_genome(genome, config)
 
-def run():
-    # Load the config file, which is assumed to live in
-    # the same directory as this script.
-    local_dir = os.path.dirname(__file__)
-    config_path = os.path.join(local_dir, 'config')
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
-                         config_path)
-
+def run(config):
     pop = neat.Population(config)
     stats = neat.StatisticsReporter()
     pop.add_reporter(stats)
@@ -64,4 +57,10 @@ def run():
 
 
 if __name__ == '__main__':
-    run()
+    local_dir = os.path.dirname(__file__)
+    config_path = os.path.join(local_dir, 'config')
+
+    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
+                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+                         config_path)
+    run(config)
