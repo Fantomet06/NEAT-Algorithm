@@ -17,10 +17,13 @@ def eval_genome(genome, config):
     net = neat.nn.FeedForwardNetwork.create(genome, config)
 
     fitnesses = []
+    env = gym.make('CartPole-v1')
+    observation = env.reset()
+
+    env.render()
 
     for runs in range(runs_per_net):
-        env = gym.make('CartPole-v1')
-        observation = env.reset()
+        
 
         # Run the given simulation for up to num_steps time steps.
         fitness = 0.0
@@ -29,6 +32,7 @@ def eval_genome(genome, config):
             action = np.argmax(net.activate(observation))
             observation, reward, done, info = env.step(action)
             fitness += reward
+            
 
         fitnesses.append(fitness)
 
