@@ -36,7 +36,6 @@ def eval_genome(genome, config):
 
         fitnesses.append(fitness)
 
-    # The genome's fitness is its worst performance across all runs.
     return np.mean(fitnesses)
 
 
